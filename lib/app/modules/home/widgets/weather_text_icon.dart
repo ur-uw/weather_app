@@ -15,8 +15,8 @@ class WeatherTextIcon extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: 50,
-          height: 50,
+          width: 55,
+          height: 55,
           decoration: BoxDecoration(
               color: shadowColor, borderRadius: BorderRadius.circular(8)),
           child: Icon(icon, size: 30),
