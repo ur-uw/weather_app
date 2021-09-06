@@ -1,0 +1,40 @@
+name: weather_app
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+dependencies:
+  cupertino_icons: ^1.0.2
+  fluentui_system_icons: ^1.1.138
+  flutter:
+    sdk: flutter
+  flutter_neumorphic: 3.1.0
+  get: 4.3.8
+  intl: ^0.17.0
+  syncfusion_flutter_gauges: ^19.2.59
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  lints: 1.0.1
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins/Poppins-Thin.ttf
+        - asset: assets/fonts/Poppins/Poppins-ThinItalic.ttf
+        - asset: assets/fonts/Poppins/Poppins-Light.ttf
+        - asset: assets/fonts/Poppins/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins/Poppins-Italic.ttf
+          style: italic
+        - asset: assets/fonts/Poppins/Poppins-Medium.ttf
+        - asset: assets/fonts/Poppins/Poppins-SemiBold.ttf
+        - asset: assets/fonts/Poppins/Poppins-SemiBoldItalic.ttf
+          style: italic
+        - asset: assets/fonts/Poppins/Poppins-Bold.ttf
