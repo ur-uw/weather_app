@@ -1,11 +1,13 @@
 import 'dart:async';
-
+import 'dart:convert';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app/app/data/address_model.dart';
-import 'package:weather_app/app/data/weather_model.dart';
+import 'package:weather_app/app/data/current_weather_model.dart';
+import 'package:weather_app/app/data/models/daily_weather_data.dart';
 import 'package:weather_app/services/weather_service.dart';
 
 class HomeController extends GetxController {
@@ -14,15 +16,19 @@ class HomeController extends GetxController {
   final RxnString currentTime = RxnString();
   final Rxn<Position> _userPosition = Rxn();
   final Rxn<AddressModel> _currentUserAddress = Rxn<AddressModel>();
-  final Rxn<WeatherData> _currentWeather = Rxn<WeatherData>();
+  final Rxn<CurrentWeatherData> _currentWeather = Rxn<CurrentWeatherData>();
+  final Rxn<DailyWeatherData> _dailyWeatherData = Rxn<DailyWeatherData>();
 
-  /// Getter for weather data
-  WeatherData? get currentWeather => _currentWeather.value;
+  /// Get current weather data
+  CurrentWeatherData? get currentWeather => _currentWeather.value;
 
-  ///Getter for current user location
+  /// Get daily weather data
+  DailyWeatherData? get dailyWeather => _dailyWeatherData.value;
+
+  ///Get current user location
   Position? get userPosition => _userPosition.value;
 
-  ///Getter for current user location
+  ///Get current user address
   AddressModel? get currentUserAddress => _currentUserAddress.value;
 
   ///Get real time
@@ -90,6 +96,8 @@ class HomeController extends GetxController {
   void onReady() async {
     try {
       _userPosition.value = await _determinePosition();
+      var res = await rootBundle.loadString('assets/models/daily_weather.json');
+      _dailyWeatherData.value = dailyWeatherDataFromJson(res);
       if (_userPosition.value != null) {
         final Placemark plcMark = await _detrmineAddress(_userPosition.value!);
         _currentUserAddress.value = new AddressModel(
@@ -98,11 +106,12 @@ class HomeController extends GetxController {
           subLocality: plcMark.subLocality,
           city: plcMark.locality,
         );
-        _currentWeather.value = await _weatherService.getCityWeather(
-          city: plcMark.locality!,
-          lat: _userPosition.value?.latitude ?? 0,
-          long: _userPosition.value?.longitude ?? 0,
-        );
+        // TODO: FIX UNAUTHORIZED WHEN REQUESTING DAILY WEATHER
+        // _currentWeather.value = await _weatherService.getCurrentWeather(
+        //   city: plcMark.locality!,
+        //   lat: _userPosition.value?.latitude ?? 0,
+        //   long: _userPosition.value?.longitude ?? 0,
+        // );
       }
     } catch (e) {
       printError(info: e.toString());

@@ -35,7 +35,7 @@ class HomeView extends GetView<HomeController> {
           ],
           leading: Icon(FluentIcons.line_horizontal_5_20_regular),
         ),
-        body: controller.currentWeather != null
+        body: controller.dailyWeather != null
             ? Container(
                 width: Get.width,
                 child: Padding(
@@ -43,9 +43,11 @@ class HomeView extends GetView<HomeController> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        UserAddress(
-                          addressModel: controller.currentUserAddress!,
-                        ),
+                        controller.currentUserAddress != null
+                            ? UserAddress(
+                                addressModel: controller.currentUserAddress!,
+                              )
+                            : Container(),
                         SizedBox(height: 25),
 
                         // Cauge
@@ -70,9 +72,11 @@ class HomeView extends GetView<HomeController> {
                                   color: shadowColor,
                                 ),
                                 interval: 10,
-                                pointers: const <GaugePointer>[
+                                pointers: <GaugePointer>[
                                   MarkerPointer(
-                                    value: 50,
+                                    value: controller.dailyWeather?.list?.first
+                                            ?.temp?.day ??
+                                        0,
                                     elevation: 10,
                                     markerWidth: 20,
                                     markerHeight: 20,
@@ -83,7 +87,9 @@ class HomeView extends GetView<HomeController> {
                                     markerOffset: -5,
                                   ),
                                   RangePointer(
-                                    value: 50,
+                                    value: controller.dailyWeather?.list?.first
+                                            ?.temp?.day ??
+                                        0,
                                     width: 7,
                                     color: Color(0xff4849DB),
                                     animationType: AnimationType.easeInCirc,
@@ -101,7 +107,7 @@ class HomeView extends GetView<HomeController> {
                                               0, 2, 0, 0),
                                           child: Container(
                                             child: text(
-                                              '50° C',
+                                              '${controller.dailyWeather?.list?.first?.temp?.day?.round()}° C',
                                               textStyle: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 25,

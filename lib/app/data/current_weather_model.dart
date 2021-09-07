@@ -4,13 +4,14 @@
 
 import 'dart:convert';
 
-WeatherData weatherDataFromJson(String str) =>
-    WeatherData.fromJson(json.decode(str));
+CurrentWeatherData currentWeatherDataFromJson(String str) =>
+    CurrentWeatherData.fromJson(json.decode(str));
 
-String weatherDataToJson(WeatherData data) => json.encode(data.toJson());
+String currentWeatherDataToJson(CurrentWeatherData data) =>
+    json.encode(data.toJson());
 
-class WeatherData {
-  WeatherData({
+class CurrentWeatherData {
+  CurrentWeatherData({
     this.coord,
     this.weather,
     this.base,
@@ -40,7 +41,8 @@ class WeatherData {
   String? name;
   int? cod;
 
-  factory WeatherData.fromJson(Map<String, dynamic> json) => WeatherData(
+  factory CurrentWeatherData.fromJson(Map<String, dynamic> json) =>
+      CurrentWeatherData(
         coord: Coord.fromJson(json["coord"]),
         weather:
             List<Weather>.from(json["weather"].map((x) => Weather.fromJson(x))),
