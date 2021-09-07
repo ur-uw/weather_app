@@ -1,0 +1,42 @@
+{
+    "coord": {
+        "lon": 44.0249,
+        "lat": 32.616
+    },
+    "weather": [{
+        "id": 800,
+        "main": "Clear",
+        "description": "clear sky",
+        "icon": "01d"
+    }],
+    "base": "stations",
+    "main": {
+        "temp": 312.64,
+        "feels_like": 309.97,
+        "temp_min": 312.64,
+        "temp_max": 312.64,
+        "pressure": 1007,
+        "humidity": 12,
+        "sea_level": 1007,
+        "grnd_level": 1004
+    },
+    "visibility": 10000,
+    "wind": {
+        "speed": 3.39,
+        "deg": 321,
+        "gust": 3.2
+    },
+    "clouds": {
+        "all": 0
+    },
+    "dt": 1630998562,
+    "sys": {
+        "country": "IQ",
+        "sunrise": 1630982558,
+        "sunset": 1631028098
+    },
+    "timezone": 10800,
+    "id": 94824,
+    "name": "Karbala",
+    "cod": 200
+}

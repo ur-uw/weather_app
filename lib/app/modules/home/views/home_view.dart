@@ -2,7 +2,6 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:weather_app/app/modules/home/widgets/daily_weather_container.dart';
 import 'package:weather_app/app/modules/home/widgets/user_address.dart';
@@ -36,7 +35,7 @@ class HomeView extends GetView<HomeController> {
           ],
           leading: Icon(FluentIcons.line_horizontal_5_20_regular),
         ),
-        body: controller.currentUserAddress != null
+        body: controller.currentWeather != null
             ? Container(
                 width: Get.width,
                 child: Padding(

@@ -5,11 +5,19 @@ import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app/app/data/address_model.dart';
+import 'package:weather_app/app/data/weather_model.dart';
+import 'package:weather_app/services/weather_service.dart';
 
 class HomeController extends GetxController {
+  static HomeController to = Get.find();
+  final WeatherService _weatherService = new WeatherService();
   final RxnString currentTime = RxnString();
   final Rxn<Position> _userPosition = Rxn();
   final Rxn<AddressModel> _currentUserAddress = Rxn<AddressModel>();
+  final Rxn<WeatherData> _currentWeather = Rxn<WeatherData>();
+
+  /// Getter for weather data
+  WeatherData? get currentWeather => _currentWeather.value;
 
   ///Getter for current user location
   Position? get userPosition => _userPosition.value;
@@ -90,9 +98,14 @@ class HomeController extends GetxController {
           subLocality: plcMark.subLocality,
           city: plcMark.locality,
         );
+        _currentWeather.value = await _weatherService.getCityWeather(
+          city: plcMark.locality!,
+          lat: _userPosition.value?.latitude ?? 0,
+          long: _userPosition.value?.longitude ?? 0,
+        );
       }
     } catch (e) {
-      print(e);
+      printError(info: e.toString());
     }
     super.onReady();
   }
