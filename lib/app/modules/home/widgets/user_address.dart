@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:weather_app/app/data/address_model.dart';
+import 'package:weather_app/app/data/models/address_model.dart';
 import 'package:weather_app/utils/colors.dart';
 import 'package:weather_app/utils/helper_functions.dart';
 

@@ -35,7 +35,7 @@ class HomeView extends GetView<HomeController> {
           ],
           leading: Icon(FluentIcons.line_horizontal_5_20_regular),
         ),
-        body: controller.dailyWeather != null
+        body: controller.weatherData != null
             ? Container(
                 width: Get.width,
                 child: Padding(
@@ -74,7 +74,7 @@ class HomeView extends GetView<HomeController> {
                                 interval: 10,
                                 pointers: <GaugePointer>[
                                   MarkerPointer(
-                                    value: controller.dailyWeather?.list?.first
+                                    value: controller.weatherData?.daily?.first
                                             ?.temp?.day ??
                                         0,
                                     elevation: 10,
@@ -87,7 +87,7 @@ class HomeView extends GetView<HomeController> {
                                     markerOffset: -5,
                                   ),
                                   RangePointer(
-                                    value: controller.dailyWeather?.list?.first
+                                    value: controller.weatherData?.daily?.first
                                             ?.temp?.day ??
                                         0,
                                     width: 7,
@@ -107,7 +107,7 @@ class HomeView extends GetView<HomeController> {
                                               0, 2, 0, 0),
                                           child: Container(
                                             child: text(
-                                              '${controller.dailyWeather?.list?.first?.temp?.day?.round()}° C',
+                                              '${controller.weatherData?.daily?.first?.temp?.day?.round()}° C',
                                               textStyle: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 25,
@@ -131,15 +131,18 @@ class HomeView extends GetView<HomeController> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               WeatherTextIcon(
-                                iconText: '10km/h',
+                                iconText:
+                                    '${controller.weatherData?.daily?.first?.windSpeed}km/h',
                                 icon: FluentIcons.weather_squalls_48_regular,
                               ),
                               WeatherTextIcon(
-                                iconText: '30%',
+                                iconText:
+                                    '${controller.weatherData?.daily?.first?.humidity ?? 0}%',
                                 icon: FluentIcons.drop_48_regular,
                               ),
                               WeatherTextIcon(
-                                iconText: '5%',
+                                iconText:
+                                    '${controller.weatherData?.daily?.first?.rain?.round() ?? 0}%',
                                 icon: FluentIcons.weather_drizzle_48_regular,
                               ),
                             ],
@@ -169,11 +172,24 @@ class HomeView extends GetView<HomeController> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       ...List.generate(
-                                        7,
+                                        controller.weatherData?.daily?.length ??
+                                            0,
                                         (index) => DailyWeatherContainer(
-                                          dayName: 'Mon',
-                                          weatherStateIcon: FluentIcons
-                                              .weather_sunny_48_regular,
+                                          dayName: getWeekDayName(
+                                            DateTime.now().weekday + index,
+                                          ),
+                                          weatherStateIcon: getWeatherIcon(
+                                              controller
+                                                      .weatherData
+                                                      ?.daily?[index]
+                                                      ?.weather
+                                                      ?.first
+                                                      ?.icon ??
+                                                  ''),
+                                          temp: controller.weatherData
+                                                  ?.daily?[index]?.temp?.day
+                                                  ?.round() ??
+                                              0,
                                         ),
                                       )
                                     ],

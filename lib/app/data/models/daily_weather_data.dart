@@ -123,6 +123,7 @@ class DailyWeatherDataList {
   DailyWeatherDataListTemp? temp;
   double? pressure;
   int? humidity;
+  double? rain;
   List<DailyWeatherDataListWeather?>? weather;
   double? speed;
   int? deg;
@@ -139,6 +140,7 @@ class DailyWeatherDataList {
     this.deg,
     this.gust,
     this.clouds,
+    this.rain,
   });
   DailyWeatherDataList.fromJson(Map<String, dynamic> json) {
     dt = json["dt"]?.toInt();
@@ -147,6 +149,7 @@ class DailyWeatherDataList {
         : null;
     pressure = json["pressure"]?.toDouble();
     humidity = json["humidity"]?.toInt();
+    rain = json["rain"]?.toDouble();
     if (json["weather"] != null) {
       final v = json["weather"];
       final arr0 = <DailyWeatherDataListWeather>[];
@@ -168,6 +171,7 @@ class DailyWeatherDataList {
     }
     data["pressure"] = pressure;
     data["humidity"] = humidity;
+    data["rain"] = rain;
     if (weather != null) {
       final v = weather;
       final arr0 = [];
