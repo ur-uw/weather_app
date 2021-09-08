@@ -14,6 +14,7 @@ class HomeController extends GetxController {
   final Rxn<Position> _userPosition = Rxn<Position>();
   final Rxn<WeatherData> _weatherData = Rxn<WeatherData>();
   final Rxn<AddressModel> _currentUserAddress = Rxn<AddressModel>();
+  final Rxn<WeatherDataDaily> _selectedWeekDayWeather = Rxn<WeatherDataDaily>();
 
   ///Get current user location
   Position? get userPosition => _userPosition.value;
@@ -76,6 +77,16 @@ class HomeController extends GetxController {
         .placemarkFromCoordinates(pos.latitude, pos.longitude);
     return placeMarks.first;
   }
+
+  /// Select week day to display it's weather.
+  set selectedWeekDayWeather(WeatherDataDaily? data) {
+    if (weatherData != null) {
+      _selectedWeekDayWeather.value = data;
+    }
+  }
+
+  /// Get week day weather.
+  WeatherDataDaily? get selectedWeekDayWeather => _selectedWeekDayWeather.value;
 
   @override
   void onInit() {

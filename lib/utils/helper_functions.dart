@@ -40,6 +40,8 @@ Text text(
 /// WeekDayNumber starts with monday
 String getWeekDayName(int weekDayNumber) {
   switch (weekDayNumber) {
+    case 0:
+      return 'Sun';
     case 1:
       return 'Mon';
     case 2:
@@ -52,8 +54,6 @@ String getWeekDayName(int weekDayNumber) {
       return 'Fri';
     case 6:
       return 'Sat';
-    case 7:
-      return 'Sun';
     default:
       return 'Mon';
   }
